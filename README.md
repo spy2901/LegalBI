@@ -28,25 +28,24 @@ Sistem je razvijen u **PHP-u sa MySQL bazom** i koristi proceduralni pristup za 
 /legalbi/
 │
 ├── config/
-│ └── db.php # konekcija sa MySQL
+│   └── db.php            <- konekcija sa MySQL
 │
 ├── public/
-│ ├── index.php # dashboard (za ulogovane korisnike)
-│ ├── login.php # login forma
-│ ├── logout.php # logout skripta
-│ └── assets/ # CSS, JS i slike
-│ ├── style.css
-│ └── charts.js
+│   ├── index.php         <- dashboard (za ulogovane)
+│   ├── login.php         <- forma za login
+│   ├── logout.php        <- logout
+│   └── assets/
+│       ├── style.css
+│       └── charts.js
 │
 ├── includes/
-│ ├── auth.php # login, sesije, provera pristupa
-│ ├── helpers.php # funkcije za KPI i filtriranje podataka
-│ └── etl.php # opcionalno, ETL skripte
+│   ├── auth.php          <- login, sesije, provera pristupa
+│   ├── helpers.php       <- funkcije za KPI, filtriranje podataka
+│   └── etl.php           <- (opcionalno) ETL skripte
 │
 └── modules/
-├── dashboard.php # generisanje KPI i grafika
-└── reports.php # detaljni izveštaji
-
+    ├── dashboard.php     <- generisanje KPI i grafika
+    └── reports.php       <- detaljni izveštaji
 
 ---
 
