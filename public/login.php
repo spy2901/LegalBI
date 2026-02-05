@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once '../includes/auth.php';
-
+if(isset($_SESSION['username']) && isset($_SESSION['uloga'])) {
+    header("Location: ../index.php");
+    exit();
+}
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
