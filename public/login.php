@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once '../includes/auth.php';
-if(isset($_SESSION['username']) && isset($_SESSION['uloga'])) {
+if (isset($_SESSION['username']) && isset($_SESSION['uloga'])) {
     header("Location: ../index.php");
-    exit();
+    exit(200);
 }
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -24,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <title>Login - LegalBI</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 </head>
 
 <body class="vh-100">
@@ -36,7 +38,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <img src="../assets/images/yucom-logo.jpg" alt="YUCOM Komitet pravnika za ljudska prava">
+                                        <div class="brand-logo">
+                                            <!-- Logo ikona -->
+                                            <i class="fa-solid fa-scale-balanced"
+                                                style="font-size:32px; color:#2f7be5; margin-right:10px;"></i>
+
+                                            <!-- Naziv -->
+                                            <span class="brand-title"
+                                                style="font-size:22px; font-weight:700; color:#2f7be5;">
+                                                Legal<span style="color:#1f2937;">BI</span>
+                                            </span>
+
+                                        </div>
+                                        <!-- <img src="../assets/images/yucom-logo.jpg" alt="YUCOM Komitet pravnika za ljudska prava"> -->
                                     </div>
                                     <form method="post">
                                         <div class="form-group">
