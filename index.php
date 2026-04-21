@@ -9,8 +9,8 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
 
-
 require_once __DIR__ . '/modules/dashboard.php';
+require_once __DIR__ . '/includes/layout_manager.php';
 ?>
 
 <!DOCTYPE html>
@@ -23,21 +23,18 @@ require_once __DIR__ . '/modules/dashboard.php';
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/main.css">
     <link rel="stylesheet" href="./assets/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="./assets/css/layout-manager.css">
 
     <!-- Google FONT -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900|Open+Sans:300,400,600,700,800|Raleway:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-       
+
     <!-- Bootsrap -->
     <link href="./vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!--  -->
-    <script src="assets/js/charts.js"></script>
-    <script src="assets/js/darkMode.js"></script>
-    <style>
-        
-    </style>
+    <!-- Dark Mode  -->
+    <script src="assets/js/darkMode.js" defer></script>
 </head>
 
 <body data-spy="scroll" data-target=".nav-bar" data-offset="50">
@@ -73,7 +70,7 @@ require_once __DIR__ . '/modules/dashboard.php';
                         </div>
                         <ul class="navbar-nav header-right">
                             <li class="nav-item">
-                                <a class="nav-link dark-mode-toggle" href="javascript:void(0);" title="Toggle dark mode">
+                                <a class="nav-link dark-mode-toggle" title="Toggle dark mode">
                                     <i class="fa-solid fa-sun" aria-hidden="true" style="font-size:18px;color:inherit;"></i>
                                 </a>
                             </li>
@@ -193,28 +190,176 @@ require_once __DIR__ . '/modules/dashboard.php';
         <!--**********************************
             Sidebar end
         ***********************************-->
-        <!-- Dashboard KPI -->
-        <div class="row">
-            <div class="col-xl-3 col-xxl-3 col-lg-6 col-sm-6">
-                <span>test</span>
+
+        <!-- Main Content Area -->
+        <div class="content-body">
+            <!-- Layout Control Buttons -->
+            <div class="container-fluid px-4 mt-3">
+                <div class="d-flex gap-2 mb-3">
+                    <button id="layoutEditBtn" class="btn btn-primary btn-sm">
+                        <i class="fa-solid fa-lock"></i> Edit Layout
+                    </button>
+                    <button id="layoutSaveBtn" class="btn btn-success btn-sm" style="display:none;">
+                        <i class="fa-solid fa-floppy-disk"></i> Save Layout
+                    </button>
+                    <button id="layoutResetBtn" class="btn btn-warning btn-sm" style="display:none;">
+                        <i class="fa-solid fa-undo"></i> Reset Layout
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPI Cards Section -->
+            <div class="container-fluid mt-4 px-4 dashboard-container">
+                <div class="row kpi-row">
+                    <!-- Total Cases -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3 m-0-auto" data-layout-item="kpi-total" data-layout-type="kpi">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Total Cases</p>
+                                        <h4 class="mb-0"><?php echo getTotalCases_KPI($conn); ?></h4>
+                                    </div>
+                                    <span class="kpi-icon">📌</span>
+                                </div>
+                                <small class="text-success">All cases in system</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Cases -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3" data-layout-item="kpi-active" data-layout-type="kpi">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Active Cases</p>
+                                        <h4 class="mb-0"><?php echo getActiveCases($conn); ?></h4>
+                                    </div>
+                                    <span class="kpi-icon">🟢</span>
+                                </div>
+                                <small class="text-info">In progress</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Closed Cases -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3" data-layout-item="kpi-closed" data-layout-type="kpi">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Closed Cases</p>
+                                        <h4 class="mb-0"><?php echo getClosedCases($conn); ?></h4>
+                                    </div>
+                                    <span class="kpi-icon">🔴</span>
+                                </div>
+                                <small class="text-secondary">Resolved</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Avg Duration -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3" data-layout-item="kpi-duration" data-layout-type="kpi">
+                        <div class="card kpi-card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Avg Duration</p>
+                                        <h4 class="mb-0"><?php echo getAvgDuration($conn); ?> days</h4>
+                                    </div>
+                                    <span class="kpi-icon">⏳</span>
+                                </div>
+                                <small class="text-warning">Efficiency KPI</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overdue Cases -->
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-3" data-layout-item="kpi-overdue" data-layout-type="kpi">
+                        <div class="card kpi-card kpi-alert">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <p class="text-muted small mb-1">Overdue Cases</p>
+                                        <h4 class="mb-0 text-danger"><?php echo getOverdueCases($conn); ?></h4>
+                                    </div>
+                                    <span class="kpi-icon">🚨</span>
+                                </div>
+                                <small class="text-danger">Action required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="container-fluid mt-5 px-4 dashboard-container">
+                <div class="row charts-row">
+                    <!-- Cases by Legal Area -->
+                    <div class="col-xl-6 col-lg-12 mb-4" data-layout-item="chart-area" data-layout-type="chart">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">⚖️ Cases by Legal Area</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="casesByArea" height="80"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cases by Lawyer -->
+                    <div class="col-xl-6 col-lg-12 mb-4" data-layout-item="chart-lawyer" data-layout-type="chart">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">👤 Cases by Lawyer</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="casesByLawyer" height="180"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row charts-row">
+                    <!-- Cases by Location -->
+                    <div class="col-xl-6 col-lg-12 mb-4" data-layout-item="chart-location" data-layout-type="chart">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">📍 Cases by Location</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="casesByLocation" height="80"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- New Cases Trend -->
+                    <div class="col-xl-6 col-lg-12 mb-4" data-layout-item="chart-trend" data-layout-type="chart">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">📈 New Cases Trend (Monthly)</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="newCasesTrend" height="80"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
             </div>
         </div>
-        <?php //display_kpi(); 
-        ?>
+    </div>
+    <!-- End Main Content Area -->
 
-        <!-- Dashboard grafici -->
-        <?php // display_charts(); 
-        ?>
-
-        <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://www.triathlonforge.com">Spy2901</a>
-                    <script>
-                        document.write(new Date().getFullYear())
-                    </script>
-                </p>
-            </div>
+    <div class="footer">
+        <div class="copyright">
+            <p>Copyright © Designed &amp; Developed by <a href="https://www.triathlonforge.com">Spy2901</a>
+                <script>
+                    document.write(new Date().getFullYear())
+                </script>
+            </p>
         </div>
+    </div>
 
     </div>
 
@@ -233,7 +378,14 @@ require_once __DIR__ . '/modules/dashboard.php';
 
     <script src="./assets/js/custom.min.js"></script>
     <script src="./assets/js/deznav-init.js"></script>
-   
+
+    <!-- Chart.js for dashboard visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="./assets/js/charts.js"></script>
+    
+    <!-- Layout Manager -->
+    <script src="./assets/js/layout-manager.js"></script>
+
 </body>
 
 </html>

@@ -1,0 +1,75 @@
+/* Layout Manager Styles */
+
+[data-layout-item] {
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.draggable-item {
+  cursor: move !important;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.draggable-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.draggable-item.dragging {
+  opacity: 0.6;
+  transform: scale(0.97);
+  z-index: 1000;
+}
+
+.draggable-item.drag-over {
+  border: 2px dashed #2f7be5 !important;
+  border-radius: 8px;
+  background-color: rgba(47, 123, 229, 0.05) !important;
+}
+
+/* Layout edit button styling */
+#layoutEditBtn {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#layoutEditBtn.active {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: white !important;
+}
+
+#layoutEditBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#layoutSaveBtn,
+#layoutResetBtn {
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+#layoutSaveBtn:hover,
+#layoutResetBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* KPI and Chart card styling in edit mode */
+.dashboard-container .card {
+  transition: all 0.3s ease;
+}
+
+.draggable-item .card {
+  height: 100%;
+}

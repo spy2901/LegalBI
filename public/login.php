@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             </span>
 
                                         </div>
-                                        <!-- <img src="../assets/images/yucom-logo.jpg" alt="YUCOM Komitet pravnika za ljudska prava"> -->
                                     </div>
                                     <form method="post">
                                         <div class="form-group">

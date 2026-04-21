@@ -6,8 +6,12 @@
     var btn = document.querySelector(".dark-mode-toggle");
     if (enabled) {
       document.body.classList.add("dark-mode");
+      document.documentElement.setAttribute("data-theme-version", "dark");
+      document.body.setAttribute("data-theme-version", "dark");
     } else {
       document.body.classList.remove("dark-mode");
+      document.documentElement.removeAttribute("data-theme-version");
+      document.body.removeAttribute("data-theme-version");
     }
     if (btn) {
       var icon = btn.querySelector("i");

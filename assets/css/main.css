@@ -108,11 +108,11 @@
 
 .dark-mode .nav-header,
 .dark-mode .header,
-.dashboard_bar,
-.header-info span,
+.dark-mode .dashboard_bar,
+.dark-mode .header-info span,
 .dark-mode .footer {
   background: #0b1220;
-  color: #cbd5e1;
+  color: #cbd5e1 !important;
 }
 
 .dark-mode .brand-title {
@@ -179,4 +179,22 @@ body.dark-mode svg * {
   stroke: currentColor !important;
   fill: currentColor !important;
   color: inherit !important;
+}
+
+.card {
+  box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+
+.dark-mode-toggle:hover{
+  cursor: pointer;
+}
+.fa-sun:hover{
+  cursor: pointer;
+}
+
+
+
+.copyright a {
+  color: var(--primary) !important;
 }
